@@ -320,6 +320,66 @@ void checkwinRed()
         }
       }
     }
+    if (ReadPx(piece.x+1,piece.y) == Red)    // X.XX
+    {
+      if (ReadPx(piece.x+2,piece.y) == Red)
+      {
+        if (ReadPx(piece.x-1,piece.y) == Red)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x-1,piece.y) == Red)    //XX.X
+    {
+      if (ReadPx(piece.x-2,piece.y) == Red)
+      {
+        if (ReadPx(piece.x+1,piece.y) == Red)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x-1,piece.y+1) == Red)    //xx_x 11-5
+    {
+      if (ReadPx(piece.x-2,piece.y+2) == Red)
+      {
+        if (ReadPx(piece.x+1,piece.y-1) == Red)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x+1,piece.y-1) == Red)    //x_xxx  11-5
+    {
+      if (ReadPx(piece.x+2,piece.y-2) == Red)
+      {
+        if (ReadPx(piece.x-1,piece.y+1) == Red)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x-1,piece.y-1) == Red)    //xx_x  1-7
+    {
+      if (ReadPx(piece.x-2,piece.y-2) == Red)
+      {
+        if (ReadPx(piece.x+1,piece.y+1) ==Red)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x+1,piece.y+1) == Red)
+    {
+      if (ReadPx(piece.x+2,piece.y+2) == Red)
+      {
+        if (ReadPx(piece.x-1,piece.y-1) == Red)
+        {
+          endgame();
+        }
+      }
+    }
   }
 }
     
@@ -337,11 +397,11 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y) == Red)    //Check right
+    if (ReadPx(piece.x+1,piece.y) == Blue)    //Check right
     {
-      if (ReadPx(piece.x+2,piece.y) == Red)
+      if (ReadPx(piece.x+2,piece.y) == Blue)
       {
-        if (ReadPx(piece.x+3,piece.y) == Red)
+        if (ReadPx(piece.x+3,piece.y) == Blue)
         {
           endgame();
         }
@@ -373,10 +433,7 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+3,piece.y-3) == Blue)
         {
-          for (int i = 0; i<8; i++)
-          {
-            DrawPx(i,7,Green);
-          }
+          endgame();
         }
       }
     }
@@ -399,12 +456,73 @@ void checkwinBlue()
           endgame();
         }
       }
+    }/////
+    if (ReadPx(piece.x+1,piece.y) == Blue)    // X.XX
+    {
+      if (ReadPx(piece.x+2,piece.y) == Blue)
+      {
+        if (ReadPx(piece.x-1,piece.y) == Blue)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x-1,piece.y) == Blue)    //XX.X
+    {
+      if (ReadPx(piece.x-2,piece.y) == Blue)
+      {
+        if (ReadPx(piece.x+1,piece.y) == Blue)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x-1,piece.y+1) == Blue)    //xx_x 11-5
+    {
+      if (ReadPx(piece.x-2,piece.y+2) == Blue)
+      {
+        if (ReadPx(piece.x+1,piece.y-1) == Blue)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x+1,piece.y-1) == Blue)    //x_xxx  11-5
+    {
+      if (ReadPx(piece.x+2,piece.y-2) == Blue)
+      {
+        if (ReadPx(piece.x-1,piece.y+1) == Blue)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x-1,piece.y-1) == Blue)    //xx_x  1-7
+    {
+      if (ReadPx(piece.x-2,piece.y-2) == Blue)
+      {
+        if (ReadPx(piece.x+1,piece.y+1) ==Blue)
+        {
+          endgame();
+        }
+      }
+    }
+    if (ReadPx(piece.x+1,piece.y+1) == Blue)
+    {
+      if (ReadPx(piece.x+2,piece.y+2) == Blue)
+      {
+        if (ReadPx(piece.x-1,piece.y-1) == Blue)
+        {
+          endgame();
+        }
+      }
     }
   }
 }
 
 void endgame()
 {
-  Serial.println("win");
+  DrawPx(3,0,White);
+  DisplaySlate();
 }
 
