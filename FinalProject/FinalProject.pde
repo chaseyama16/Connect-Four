@@ -8,6 +8,11 @@ struct Point
 
 Point initial = {4,7};    //Initial location of piece
 Point piece = {0,0};    //Location of last dropped piece
+Point win1 = {0,0};
+Point win2 = {0,0};
+Point win3 = {0,0};
+Point win4 = {0,0};
+
 int player = 1;     //Player variable
 int marker1 = 1;    //Stacking pieces per column
 int marker2 = 1;
@@ -32,13 +37,16 @@ void loop()                     // run over and over again
 {
   if (player == 1)
   {
+    checkwinBlue();
     player1();
-    checkwinRed();
+    //checktie();
   }
   if (player == 2)
   {
+    checkwinRed();
     player2();
-    checkwinBlue();
+    
+    //checktie();
   }
   DisplaySlate();
 }
@@ -65,6 +73,10 @@ void player1()
   if (initial.x<1)
   {
     initial.x = 1;
+  }
+  if (Button_B)    //Reset Game
+  {
+    
   }
   if (Button_A)
   {
@@ -256,7 +268,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x-3,piece.y) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y;
+          win3.x=piece.x-2;
+          win3.y=piece.y;
+          win4.x=piece.x-3;
+          win4.y=piece.y;
+          endgamered();
         }
       }
     }
@@ -266,7 +286,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x+3,piece.y) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y;
+          win3.x=piece.x+2;
+          win3.y=piece.y;
+          win4.x=piece.x+3;
+          win4.y=piece.y;
+          endgamered();
         }
       }
     }
@@ -276,7 +304,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x,piece.y-3) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x;
+          win2.y=piece.y-1;
+          win3.x=piece.x;
+          win3.y=piece.y-2;
+          win4.x=piece.x;
+          win4.y=piece.y-3;
+          endgamered();
         }
       }
     }
@@ -286,7 +322,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x-3,piece.y-3) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y-1;
+          win3.x=piece.x-2;
+          win3.y=piece.y-2;
+          win4.x=piece.x-3;
+          win4.y=piece.y-3;
+          endgamered();
         }
       }
     }
@@ -296,7 +340,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x+3,piece.y-3) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y-1;
+          win3.x=piece.x+2;
+          win3.y=piece.y-2;
+          win4.x=piece.x+3;
+          win4.y=piece.y-3;
+          endgamered();
         }
       }
     }
@@ -306,7 +358,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x-3,piece.y+3) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y+1;
+          win3.x=piece.x-2;
+          win3.y=piece.y+2;
+          win4.x=piece.x-3;
+          win4.y=piece.y+3;
+          endgamered();
         }
       }
     }
@@ -316,7 +376,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x+3,piece.y+3) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y+1;
+          win3.x=piece.x+2;
+          win3.y=piece.y+2;
+          win4.x=piece.x+3;
+          win4.y=piece.y+3;
+          endgamered();
         }
       }
     }
@@ -326,7 +394,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x-1,piece.y) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y;
+          win3.x=piece.x+2;
+          win3.y=piece.y;
+          win4.x=piece.x-1;
+          win4.y=piece.y;
+          endgamered();
         }
       }
     }
@@ -336,7 +412,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x+1,piece.y) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y;
+          win3.x=piece.x-2;
+          win3.y=piece.y;
+          win4.x=piece.x+1;
+          win4.y=piece.y;
+          endgamered();
         }
       }
     }
@@ -346,17 +430,33 @@ void checkwinRed()
       {
         if (ReadPx(piece.x+1,piece.y-1) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y+1;
+          win3.x=piece.x-2;
+          win3.y=piece.y+2;
+          win4.x=piece.x+1;
+          win4.y=piece.y-1;
+          endgamered();
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y-1) == Red)    //x_xxx  11-5
+    if (ReadPx(piece.x+1,piece.y-1) == Red)    //x_xx  11-5
     {
       if (ReadPx(piece.x+2,piece.y-2) == Red)
       {
         if (ReadPx(piece.x-1,piece.y+1) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y-1;
+          win3.x=piece.x+2;
+          win3.y=piece.y-2;
+          win4.x=piece.x-1;
+          win4.y=piece.y+1;
+          endgamered();
         }
       }
     }
@@ -366,7 +466,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x+1,piece.y+1) ==Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y-1;
+          win3.x=piece.x-2;
+          win3.y=piece.y-2;
+          win4.x=piece.x+1;
+          win4.y=piece.y+1;
+          endgamered();
         }
       }
     }
@@ -376,7 +484,15 @@ void checkwinRed()
       {
         if (ReadPx(piece.x-1,piece.y-1) == Red)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y+1;
+          win3.x=piece.x+2;
+          win3.y=piece.y+2;
+          win4.x=piece.x-1;
+          win4.y=piece.y-1;
+          endgamered();
         }
       }
     }
@@ -393,7 +509,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-3,piece.y) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y;
+          win3.x=piece.x-2;
+          win3.y=piece.y;
+          win4.x=piece.x-3;
+          win4.y=piece.y;
+          endgameblue();
         }
       }
     }
@@ -403,7 +527,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+3,piece.y) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y;
+          win3.x=piece.x+2;
+          win3.y=piece.y;
+          win4.x=piece.x+3;
+          win4.y=piece.y;
+          endgamered();
         }
       }
     }
@@ -413,7 +545,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x,piece.y-3) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x;
+          win2.y=piece.y-1;
+          win3.x=piece.x;
+          win3.y=piece.y-2;
+          win4.x=piece.x;
+          win4.y=piece.y-3;
+          endgameblue();
         }
       }
     }
@@ -423,7 +563,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-3,piece.y-3) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y-1;
+          win3.x=piece.x-2;
+          win3.y=piece.y-2;
+          win4.x=piece.x-3;
+          win4.y=piece.y-3;
+          endgameblue();
         }
       }
     }
@@ -433,7 +581,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+3,piece.y-3) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y-1;
+          win3.x=piece.x+2;
+          win3.y=piece.y-2;
+          win4.x=piece.x+3;
+          win4.y=piece.y-3;
+          endgameblue();
         }
       }
     }
@@ -443,7 +599,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-3,piece.y+3) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y+1;
+          win3.x=piece.x-2;
+          win3.y=piece.y+2;
+          win4.x=piece.x-3;
+          win4.y=piece.y+3;
+          endgameblue();
         }
       }
     }
@@ -453,7 +617,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+3,piece.y+3) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y+1;
+          win3.x=piece.x+2;
+          win3.y=piece.y+2;
+          win4.x=piece.x+3;
+          win4.y=piece.y+3;
+          endgameblue();
         }
       }
     }/////
@@ -463,7 +635,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-1,piece.y) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y;
+          win3.x=piece.x+2;
+          win3.y=piece.y;
+          win4.x=piece.x-1;
+          win4.y=piece.y;
+          endgameblue();
         }
       }
     }
@@ -473,7 +653,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+1,piece.y) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y;
+          win3.x=piece.x-2;
+          win3.y=piece.y;
+          win4.x=piece.x+1;
+          win4.y=piece.y;
+          endgameblue();
         }
       }
     }
@@ -483,7 +671,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+1,piece.y-1) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y+1;
+          win3.x=piece.x-2;
+          win3.y=piece.y+2;
+          win4.x=piece.x+1;
+          win4.y=piece.y-1;
+          endgameblue();
         }
       }
     }
@@ -493,7 +689,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-1,piece.y+1) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y-1;
+          win3.x=piece.x+2;
+          win3.y=piece.y-2;
+          win4.x=piece.x-1;
+          win4.y=piece.y+1;
+          endgameblue();
         }
       }
     }
@@ -503,7 +707,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x+1,piece.y+1) ==Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x-1;
+          win2.y=piece.y-1;
+          win3.x=piece.x-2;
+          win3.y=piece.y-2;
+          win4.x=piece.x+1;
+          win4.y=piece.y+1;
+          endgameblue();
         }
       }
     }
@@ -513,7 +725,15 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-1,piece.y-1) == Blue)
         {
-          endgame();
+          win1.x=piece.x;
+          win1.y=piece.y;
+          win2.x=piece.x+1;
+          win2.y=piece.y+1;
+          win3.x=piece.x+2;
+          win3.y=piece.y+2;
+          win4.x=piece.x-1;
+          win4.y=piece.y-1;
+          endgameblue();
         }
       }
     }
@@ -524,5 +744,81 @@ void endgame()
 {
   DrawPx(3,0,White);
   DisplaySlate();
+}
+
+void endgamered()
+{
+  DrawPx(win1.x,win1.y,White);
+  DrawPx(win2.x,win2.y,White);
+  DrawPx(win3.x,win3.y,White);
+  DrawPx(win4.x,win4.y,White);
+  DisplaySlate();
+  delay(250);
+  DrawPx(win1.x,win1.y,Red);
+  DrawPx(win2.x,win2.y,Red);
+  DrawPx(win3.x,win3.y,Red);
+  DrawPx(win4.x,win4.y,Red);
+  DisplaySlate();
+  delay(250);
+  DrawPx(win1.x,win1.y,White);
+  DrawPx(win2.x,win2.y,White);
+  DrawPx(win3.x,win3.y,White);
+  DrawPx(win4.x,win4.y,White);
+  DisplaySlate();
+  delay(250);
+  DrawPx(win1.x,win1.y,Red);
+  DrawPx(win2.x,win2.y,Red);
+  DrawPx(win3.x,win3.y,Red);
+  DrawPx(win4.x,win4.y,Red);
+}
+
+void endgameblue()
+{
+  DrawPx(win1.x,win1.y,White);
+  DrawPx(win2.x,win2.y,White);
+  DrawPx(win3.x,win3.y,White);
+  DrawPx(win4.x,win4.y,White);
+  DisplaySlate();
+  delay(250);
+  DrawPx(win1.x,win1.y,Blue);
+  DrawPx(win2.x,win2.y,Blue);
+  DrawPx(win3.x,win3.y,Blue);
+  DrawPx(win4.x,win4.y,Blue);
+  DisplaySlate();
+  delay(250);
+  DrawPx(win1.x,win1.y,White);
+  DrawPx(win2.x,win2.y,White);
+  DrawPx(win3.x,win3.y,White);
+  DrawPx(win4.x,win4.y,White);
+  DisplaySlate();
+  delay(250);
+  DrawPx(win1.x,win1.y,Blue);
+  DrawPx(win2.x,win2.y,Blue);
+  DrawPx(win3.x,win3.y,Blue);
+  DrawPx(win4.x,win4.y,Blue);
+}
+
+void checktie()
+{
+  if (marker1 == 6)
+  {
+    if (marker2 == 6)
+    {
+      if (marker3 == 6)
+      {
+        if (marker4 == 6)
+        {
+          if (marker5 == 6)
+          {
+            if (marker6 == 6)
+            {
+             ClearSlate();
+             DisplaySlate();
+            }
+          }
+        }
+      }
+    }
+  } 
 }
 
