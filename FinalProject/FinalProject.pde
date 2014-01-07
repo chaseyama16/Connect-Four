@@ -35,6 +35,7 @@ void setup()                    // run once, when the sketch starts
 
 void loop()                     // run over and over again
 {
+  
   if (player == 1)
   {
     checkwinBlue();
@@ -74,9 +75,24 @@ void player1()
   {
     initial.x = 1;
   }
-  if (Button_B)    //Reset Game
+  if (Button_B)
   {
-    
+    ClearSlate();
+    for (int i = 0; i<7; i++)    //Draw "board"
+    {
+      DrawPx(0,i,Green);
+      DrawPx(7,i,Green);
+      DrawPx(i,0,Green);
+    }
+    player = 1;
+    marker1 = 1;
+    marker2 = 1;
+    marker3 = 1;
+    marker4 = 1;
+    marker5 = 1;
+    marker6 = 1;
+    initial.x = 4;
+    initial.y = 7;
   }
   if (Button_A)
   {
@@ -180,6 +196,25 @@ void player2()
   if (initial.x<1)
   {
     initial.x = 1;
+  }
+  if (Button_B)
+  {
+    ClearSlate();
+    for (int i = 0; i<7; i++)    //Draw "board"
+    {
+      DrawPx(0,i,Green);
+      DrawPx(7,i,Green);
+      DrawPx(i,0,Green);
+    }
+    player = 1;
+    marker1 = 1;
+    marker2 = 1;
+    marker3 = 1;
+    marker4 = 1;
+    marker5 = 1;
+    marker6 = 1;
+    initial.x = 4;
+    initial.y = 7;
   }
   if (Button_A)
   {
@@ -798,27 +833,29 @@ void endgameblue()
   DrawPx(win4.x,win4.y,Blue);
 }
 
-void checktie()
+void resetgame()
 {
-  if (marker1 == 6)
+  CheckButtonsPress();
   {
-    if (marker2 == 6)
+    if (Button_B)
     {
-      if (marker3 == 6)
+      ClearSlate();
+      for (int i = 0; i<7; i++)    //Draw "board"
       {
-        if (marker4 == 6)
-        {
-          if (marker5 == 6)
-          {
-            if (marker6 == 6)
-            {
-             ClearSlate();
-             DisplaySlate();
-            }
-          }
-        }
+        DrawPx(0,i,Green);
+        DrawPx(7,i,Green);
+        DrawPx(i,0,Green);
       }
+      player = 1;
+      marker1 = 1;
+      marker2 = 1;
+      marker3 = 1;
+      marker4 = 1;
+      marker5 = 1;
+      marker6 = 1;
+      initial.x = 4;
+      initial.y = 7;
     }
-  } 
+  }
 }
 
