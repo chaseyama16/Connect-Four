@@ -21,6 +21,8 @@ int marker4 = 1;
 int marker5 = 1;
 int marker6 = 1;
 
+int wingame = 1;
+
 void setup()                    // run once, when the sketch starts
 {
   MeggyJrSimpleSetup();      // Required code, line 2 of 2.
@@ -35,21 +37,28 @@ void setup()                    // run once, when the sketch starts
 
 void loop()                     // run over and over again
 {
-  
-  if (player == 1)
+  if (wingame == 1)
   {
-    checkwinBlue();
-    player1();
-    //checktie();
+    if (player == 1)
+    {
+      checkwinBlue();
+      player1();
+    }
+    if (player == 2)
+    {
+      checkwinRed();
+      player2();
+    }
+    DisplaySlate();
   }
-  if (player == 2)
+  if (wingame == 2)
   {
-    checkwinRed();
-    player2();
-    
-    //checktie();
+    endgamered();
   }
-  DisplaySlate();
+  if (wingame == 3)
+  {
+    endgameblue();
+  }
 }
 
 void player1()
@@ -77,6 +86,7 @@ void player1()
   }
   if (Button_B)
   {
+    Tone_Start(ToneG4,200);
     ClearSlate();
     for (int i = 0; i<7; i++)    //Draw "board"
     {
@@ -168,6 +178,7 @@ void player1()
         player = 2;
       }
     }
+    Tone_Start(ToneE5,150);
   }
 }
  
@@ -199,6 +210,7 @@ void player2()
   }
   if (Button_B)
   {
+    Tone_Start(ToneG4,200);
     ClearSlate();
     for (int i = 0; i<7; i++)    //Draw "board"
     {
@@ -290,6 +302,7 @@ void player2()
         player = 1;
       }
     }
+    Tone_Start(ToneE5,150);
   }
 }
 
@@ -311,7 +324,8 @@ void checkwinRed()
           win3.y=piece.y;
           win4.x=piece.x-3;
           win4.y=piece.y;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -329,7 +343,7 @@ void checkwinRed()
           win3.y=piece.y;
           win4.x=piece.x+3;
           win4.y=piece.y;
-          endgamered();
+          wingame = 2;
         }
       }
     }
@@ -347,7 +361,8 @@ void checkwinRed()
           win3.y=piece.y-2;
           win4.x=piece.x;
           win4.y=piece.y-3;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -365,7 +380,8 @@ void checkwinRed()
           win3.y=piece.y-2;
           win4.x=piece.x-3;
           win4.y=piece.y-3;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -383,7 +399,7 @@ void checkwinRed()
           win3.y=piece.y-2;
           win4.x=piece.x+3;
           win4.y=piece.y-3;
-          endgamered();
+          wingame = 2;
         }
       }
     }
@@ -401,7 +417,8 @@ void checkwinRed()
           win3.y=piece.y+2;
           win4.x=piece.x-3;
           win4.y=piece.y+3;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -419,7 +436,8 @@ void checkwinRed()
           win3.y=piece.y+2;
           win4.x=piece.x+3;
           win4.y=piece.y+3;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -437,7 +455,8 @@ void checkwinRed()
           win3.y=piece.y;
           win4.x=piece.x-1;
           win4.y=piece.y;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -455,7 +474,8 @@ void checkwinRed()
           win3.y=piece.y;
           win4.x=piece.x+1;
           win4.y=piece.y;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -473,7 +493,8 @@ void checkwinRed()
           win3.y=piece.y+2;
           win4.x=piece.x+1;
           win4.y=piece.y-1;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -491,7 +512,7 @@ void checkwinRed()
           win3.y=piece.y-2;
           win4.x=piece.x-1;
           win4.y=piece.y+1;
-          endgamered();
+          wingame = 2;
         }
       }
     }
@@ -509,7 +530,8 @@ void checkwinRed()
           win3.y=piece.y-2;
           win4.x=piece.x+1;
           win4.y=piece.y+1;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -527,7 +549,8 @@ void checkwinRed()
           win3.y=piece.y+2;
           win4.x=piece.x-1;
           win4.y=piece.y-1;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -552,7 +575,8 @@ void checkwinBlue()
           win3.y=piece.y;
           win4.x=piece.x-3;
           win4.y=piece.y;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -570,7 +594,8 @@ void checkwinBlue()
           win3.y=piece.y;
           win4.x=piece.x+3;
           win4.y=piece.y;
-          endgamered();
+          wingame = 2;
+          endgamemusic();
         }
       }
     }
@@ -588,7 +613,8 @@ void checkwinBlue()
           win3.y=piece.y-2;
           win4.x=piece.x;
           win4.y=piece.y-3;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -606,7 +632,8 @@ void checkwinBlue()
           win3.y=piece.y-2;
           win4.x=piece.x-3;
           win4.y=piece.y-3;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -624,7 +651,8 @@ void checkwinBlue()
           win3.y=piece.y-2;
           win4.x=piece.x+3;
           win4.y=piece.y-3;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -642,7 +670,8 @@ void checkwinBlue()
           win3.y=piece.y+2;
           win4.x=piece.x-3;
           win4.y=piece.y+3;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -660,7 +689,8 @@ void checkwinBlue()
           win3.y=piece.y+2;
           win4.x=piece.x+3;
           win4.y=piece.y+3;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }/////
@@ -678,7 +708,8 @@ void checkwinBlue()
           win3.y=piece.y;
           win4.x=piece.x-1;
           win4.y=piece.y;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -696,7 +727,8 @@ void checkwinBlue()
           win3.y=piece.y;
           win4.x=piece.x+1;
           win4.y=piece.y;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -714,7 +746,8 @@ void checkwinBlue()
           win3.y=piece.y+2;
           win4.x=piece.x+1;
           win4.y=piece.y-1;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -732,7 +765,8 @@ void checkwinBlue()
           win3.y=piece.y-2;
           win4.x=piece.x-1;
           win4.y=piece.y+1;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -741,7 +775,7 @@ void checkwinBlue()
       if (ReadPx(piece.x-2,piece.y-2) == Blue)
       {
         if (ReadPx(piece.x+1,piece.y+1) ==Blue)
-        {
+      
           win1.x=piece.x;
           win1.y=piece.y;
           win2.x=piece.x-1;
@@ -750,7 +784,8 @@ void checkwinBlue()
           win3.y=piece.y-2;
           win4.x=piece.x+1;
           win4.y=piece.y+1;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
@@ -760,6 +795,7 @@ void checkwinBlue()
       {
         if (ReadPx(piece.x-1,piece.y-1) == Blue)
         {
+          
           win1.x=piece.x;
           win1.y=piece.y;
           win2.x=piece.x+1;
@@ -768,18 +804,14 @@ void checkwinBlue()
           win3.y=piece.y+2;
           win4.x=piece.x-1;
           win4.y=piece.y-1;
-          endgameblue();
+          wingame = 3;
+          endgamemusic();
         }
       }
     }
   }
-}
 
-void endgame()
-{
-  DrawPx(3,0,White);
-  DisplaySlate();
-}
+
 
 void endgamered()
 {
@@ -788,23 +820,24 @@ void endgamered()
   DrawPx(win3.x,win3.y,White);
   DrawPx(win4.x,win4.y,White);
   DisplaySlate();
-  delay(250);
+  delay(200);
   DrawPx(win1.x,win1.y,Red);
   DrawPx(win2.x,win2.y,Red);
   DrawPx(win3.x,win3.y,Red);
   DrawPx(win4.x,win4.y,Red);
   DisplaySlate();
-  delay(250);
+  delay(200);
   DrawPx(win1.x,win1.y,White);
   DrawPx(win2.x,win2.y,White);
   DrawPx(win3.x,win3.y,White);
   DrawPx(win4.x,win4.y,White);
   DisplaySlate();
-  delay(250);
+  delay(200);
   DrawPx(win1.x,win1.y,Red);
   DrawPx(win2.x,win2.y,Red);
   DrawPx(win3.x,win3.y,Red);
   DrawPx(win4.x,win4.y,Red);
+  resetgame();
 }
 
 void endgameblue()
@@ -814,23 +847,24 @@ void endgameblue()
   DrawPx(win3.x,win3.y,White);
   DrawPx(win4.x,win4.y,White);
   DisplaySlate();
-  delay(250);
+  delay(200);
   DrawPx(win1.x,win1.y,Blue);
   DrawPx(win2.x,win2.y,Blue);
   DrawPx(win3.x,win3.y,Blue);
   DrawPx(win4.x,win4.y,Blue);
   DisplaySlate();
-  delay(250);
+  delay(200);
   DrawPx(win1.x,win1.y,White);
   DrawPx(win2.x,win2.y,White);
   DrawPx(win3.x,win3.y,White);
   DrawPx(win4.x,win4.y,White);
   DisplaySlate();
-  delay(250);
+  delay(200);
   DrawPx(win1.x,win1.y,Blue);
   DrawPx(win2.x,win2.y,Blue);
   DrawPx(win3.x,win3.y,Blue);
   DrawPx(win4.x,win4.y,Blue);
+  resetgame();
 }
 
 void resetgame()
@@ -839,6 +873,7 @@ void resetgame()
   {
     if (Button_B)
     {
+      Tone_Start(ToneG4,200);
       ClearSlate();
       for (int i = 0; i<7; i++)    //Draw "board"
       {
@@ -855,7 +890,17 @@ void resetgame()
       marker6 = 1;
       initial.x = 4;
       initial.y = 7;
+      wingame = 1;
     }
   }
+}
+
+void endgamemusic()
+{
+  Tone_Start(ToneC5,750);
+  delay(250);
+  Tone_Start(ToneD5,750);
+  delay(250);
+  Tone_Start(ToneE5,750);
 }
 
