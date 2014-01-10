@@ -8,20 +8,20 @@ struct Point
 
 Point initial = {4,7};    //Initial location of piece
 Point piece = {0,0};    //Location of last dropped piece
-Point win1 = {0,0};
+Point win1 = {0,0};    //Record winning point for end game animation
 Point win2 = {0,0};
 Point win3 = {0,0};
 Point win4 = {0,0};
 
 int player = 1;     //Player variable
-int marker1 = 1;    //Stacking pieces per column
+int marker1 = 1;    //Marker for stacking pieces per column
 int marker2 = 1;
 int marker3 = 1;
 int marker4 = 1;
 int marker5 = 1;
 int marker6 = 1;
 
-int wingame = 1;
+int wingame = 1;    //When to run endgame loop
 
 void setup()                    // run once, when the sketch starts
 {
@@ -37,33 +37,33 @@ void setup()                    // run once, when the sketch starts
 
 void loop()                     // run over and over again
 {
-  if (wingame == 1)
+  if (wingame == 1)    //Loop for game
   {
-    if (player == 1)
+    if (player == 1)    //Red players turn
     {
-      checkwinBlue();
-      player1();
+      checkwinBlue();    //Check if blue won
+      player1();    //Code for red player's turn
     }
     if (player == 2)
     {
-      checkwinRed();
-      player2();
+      checkwinRed();    //Check if red won
+      player2();    //Code for blue player's turn
     }
     DisplaySlate();
   }
-  if (wingame == 2)
+  if (wingame == 2)    //Win game animation if red won
   {
     endgamered();
   }
-  if (wingame == 3)
+  if (wingame == 3)    //Win game animation if blue won
   {
     endgameblue();
   }
 }
 
-void player1()
+void player1()    //Method for red player's turn
 {
-  DrawPx(initial.x, initial.y, Red);
+  DrawPx(initial.x, initial.y, Red);    //Draw initial red piece
   DisplaySlate();
   CheckButtonsPress();    //Code for piece movement
   if (Button_Left)    
@@ -84,7 +84,7 @@ void player1()
   {
     initial.x = 1;
   }
-  if (Button_B)
+  if (Button_B)    //Reset button
   {
     Tone_Start(ToneG4,200);
     ClearSlate();
@@ -95,16 +95,16 @@ void player1()
       DrawPx(i,0,Green);
     }
     player = 1;
-    marker1 = 1;
+    marker1 = 1;      //Resets stacking markers
     marker2 = 1;
     marker3 = 1;
     marker4 = 1;
     marker5 = 1;
     marker6 = 1;
-    initial.x = 4;
+    initial.x = 4;    //Resets initial piece location
     initial.y = 7;
   }
-  if (Button_A)
+  if (Button_A)    //Drop piece button
   {
     if (initial.x == 1)    //For column 1
     {
@@ -185,12 +185,12 @@ void player1()
  
  
  
-void player2()
+void player2()    //Method for blue player's turn
 {
-  DrawPx(initial.x, initial.y, Blue);
+  DrawPx(initial.x, initial.y, Blue);    //Draw initial blue piece
   DisplaySlate();
-  CheckButtonsPress();    //Code for piece movement
-  if (Button_Left)    
+  CheckButtonsPress();    
+  if (Button_Left)        //Code for piece movement
   {
     DrawPx(initial.x, initial.y, 0);
     initial.x--;
@@ -208,7 +208,7 @@ void player2()
   {
     initial.x = 1;
   }
-  if (Button_B)
+  if (Button_B)    //Reset button
   {
     Tone_Start(ToneG4,200);
     ClearSlate();
@@ -219,7 +219,7 @@ void player2()
       DrawPx(i,0,Green);
     }
     player = 1;
-    marker1 = 1;
+    marker1 = 1;    //Reset stacking marker
     marker2 = 1;
     marker3 = 1;
     marker4 = 1;
@@ -228,7 +228,7 @@ void player2()
     initial.x = 4;
     initial.y = 7;
   }
-  if (Button_A)
+  if (Button_A)    //Drop Piece button
   {
     if (initial.x == 1)    //For column 1
     {
@@ -306,9 +306,9 @@ void player2()
   }
 }
 
-void checkwinRed()
+void checkwinRed()    //Check if red player has won
 {
-  if (ReadPx(piece.x,piece.y) == Red)    //Check left
+  if (ReadPx(piece.x,piece.y) == Red)    //Check to the left of last piece dropped
   {
     if (ReadPx(piece.x-1,piece.y) == Red)
     {
@@ -329,7 +329,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y) == Red)    //Check right
+    if (ReadPx(piece.x+1,piece.y) == Red)    //Check to the right of last piece dropped
     {
       if (ReadPx(piece.x+2,piece.y) == Red)
       {
@@ -344,10 +344,11 @@ void checkwinRed()
           win4.x=piece.x+3;
           win4.y=piece.y;
           wingame = 2;
+          endgamemusic();
         }
       }
     }
-    if (ReadPx(piece.x,piece.y-1) == Red)    //Check down
+    if (ReadPx(piece.x,piece.y-1) == Red)    //Check down from last piece dropped
     {
       if (ReadPx(piece.x,piece.y-2) == Red)
       {
@@ -366,7 +367,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y-1) == Red)    //Check southwest
+    if (ReadPx(piece.x-1,piece.y-1) == Red)    //Check southwest of last piece dropped
     {
       if (ReadPx(piece.x-2,piece.y-2) == Red)
       {
@@ -385,7 +386,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y-1) == Red)    //Checksoutheast
+    if (ReadPx(piece.x+1,piece.y-1) == Red)    //Check southeast of last piece dropped
     {
       if (ReadPx(piece.x+2,piece.y-2) == Red)
       {
@@ -400,10 +401,11 @@ void checkwinRed()
           win4.x=piece.x+3;
           win4.y=piece.y-3;
           wingame = 2;
+          endgamemusic();
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y+1) == Red)    //Check northwest
+    if (ReadPx(piece.x-1,piece.y+1) == Red)    //Check northwest of last piece dropped
     {
       if (ReadPx(piece.x-2,piece.y+2) == Red)
       {
@@ -422,7 +424,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y+1) == Red)    //CheckNortheast
+    if (ReadPx(piece.x+1,piece.y+1) == Red)    //Check Northeast of last piece dropped
     {
       if (ReadPx(piece.x+2,piece.y+2) == Red)
       {
@@ -441,7 +443,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y) == Red)    // X.XX
+    if (ReadPx(piece.x+1,piece.y) == Red)    // Check two right and one left horizontally
     {
       if (ReadPx(piece.x+2,piece.y) == Red)
       {
@@ -460,7 +462,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y) == Red)    //XX.X
+    if (ReadPx(piece.x-1,piece.y) == Red)    //Check two left and one right horizontally
     {
       if (ReadPx(piece.x-2,piece.y) == Red)
       {
@@ -479,7 +481,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y+1) == Red)    //xx_x 11-5
+    if (ReadPx(piece.x-1,piece.y+1) == Red)    // Check two northwest one southeast
     {
       if (ReadPx(piece.x-2,piece.y+2) == Red)
       {
@@ -498,7 +500,7 @@ void checkwinRed()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y-1) == Red)    //x_xx  11-5
+    if (ReadPx(piece.x+1,piece.y-1) == Red)    //Check two southeast one northwest
     {
       if (ReadPx(piece.x+2,piece.y-2) == Red)
       {
@@ -513,10 +515,11 @@ void checkwinRed()
           win4.x=piece.x-1;
           win4.y=piece.y+1;
           wingame = 2;
+          endgamemusic();
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y-1) == Red)    //xx_x  1-7
+    if (ReadPx(piece.x-1,piece.y-1) == Red)    //Check two southwest one northeast
     {
       if (ReadPx(piece.x-2,piece.y-2) == Red)
       {
@@ -559,7 +562,7 @@ void checkwinRed()
     
 void checkwinBlue()
 {
-  if (ReadPx(piece.x,piece.y) == Blue)    //Check left
+  if (ReadPx(piece.x,piece.y) == Blue)    //Check left of last piece dropped
   {
     if (ReadPx(piece.x-1,piece.y) == Blue)
     {
@@ -580,7 +583,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y) == Blue)    //Check right
+    if (ReadPx(piece.x+1,piece.y) == Blue)    //Check right of last piece dropped
     {
       if (ReadPx(piece.x+2,piece.y) == Blue)
       {
@@ -599,7 +602,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x,piece.y-1) == Blue)    //Check down
+    if (ReadPx(piece.x,piece.y-1) == Blue)    //Check down from last piece dropped
     {
       if (ReadPx(piece.x,piece.y-2) == Blue)
       {
@@ -618,7 +621,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y-1) == Blue)    //Check southwest
+    if (ReadPx(piece.x-1,piece.y-1) == Blue)    //Check southwest of last piece dropped
     {
       if (ReadPx(piece.x-2,piece.y-2) == Blue)
       {
@@ -637,7 +640,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y-1) == Blue)    //Checksoutheast
+    if (ReadPx(piece.x+1,piece.y-1) == Blue)    //Check southeast of last piece dropped
     {
       if (ReadPx(piece.x+2,piece.y-2) == Blue)
       {
@@ -656,7 +659,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y+1) == Blue)    //Check northwest
+    if (ReadPx(piece.x-1,piece.y+1) == Blue)    //Check northwest of last piece dropped
     {
       if (ReadPx(piece.x-2,piece.y+2) == Blue)
       {
@@ -675,7 +678,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y+1) == Blue)    //CheckNortheast
+    if (ReadPx(piece.x+1,piece.y+1) == Blue)    //Check Northeast of last piece dropped
     {
       if (ReadPx(piece.x+2,piece.y+2) == Blue)
       {
@@ -694,7 +697,7 @@ void checkwinBlue()
         }
       }
     }/////
-    if (ReadPx(piece.x+1,piece.y) == Blue)    // X.XX
+    if (ReadPx(piece.x+1,piece.y) == Blue)    //Check two right one left horizontally
     {
       if (ReadPx(piece.x+2,piece.y) == Blue)
       {
@@ -713,7 +716,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y) == Blue)    //XX.X
+    if (ReadPx(piece.x-1,piece.y) == Blue)    //Check two left one right horizontally
     {
       if (ReadPx(piece.x-2,piece.y) == Blue)
       {
@@ -732,7 +735,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y+1) == Blue)    //xx_x 11-5
+    if (ReadPx(piece.x-1,piece.y+1) == Blue)    //Check two northwest one southeast
     {
       if (ReadPx(piece.x-2,piece.y+2) == Blue)
       {
@@ -751,7 +754,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y-1) == Blue)    //x_xxx  11-5
+    if (ReadPx(piece.x+1,piece.y-1) == Blue)    //Check two southeast one northwest
     {
       if (ReadPx(piece.x+2,piece.y-2) == Blue)
       {
@@ -770,7 +773,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x-1,piece.y-1) == Blue)    //xx_x  1-7
+    if (ReadPx(piece.x-1,piece.y-1) == Blue)    //Check two southwest one northeast
     {
       if (ReadPx(piece.x-2,piece.y-2) == Blue)
       {
@@ -789,7 +792,7 @@ void checkwinBlue()
         }
       }
     }
-    if (ReadPx(piece.x+1,piece.y+1) == Blue)
+    if (ReadPx(piece.x+1,piece.y+1) == Blue)   // Check two northeast one southwest
     {
       if (ReadPx(piece.x+2,piece.y+2) == Blue)
       {
@@ -813,7 +816,7 @@ void checkwinBlue()
 
 
 
-void endgamered()
+void endgamered()    //Endgame animation for red
 {
   DrawPx(win1.x,win1.y,White);
   DrawPx(win2.x,win2.y,White);
@@ -839,8 +842,8 @@ void endgamered()
   DrawPx(win4.x,win4.y,Red);
   resetgame();
 }
-
-void endgameblue()
+  
+void endgameblue()    //Endgame animation for blue
 {
   DrawPx(win1.x,win1.y,White);
   DrawPx(win2.x,win2.y,White);
@@ -867,7 +870,7 @@ void endgameblue()
   resetgame();
 }
 
-void resetgame()
+void resetgame()    //code for rest button
 {
   CheckButtonsPress();
   {
@@ -895,7 +898,7 @@ void resetgame()
   }
 }
 
-void endgamemusic()
+void endgamemusic()    //endgame music
 {
   Tone_Start(ToneC5,750);
   delay(250);
